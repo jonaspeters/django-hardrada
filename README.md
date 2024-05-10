@@ -1,29 +1,10 @@
-# README #
+# Project Hardarda
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This is a project aimed at overriding the default admin templates of Django 4.2, using Bootstrap 5 as the base for the new templates. This project will be an installable Python plugin.
 
-### What is this repository for? ###
+## Installation
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+To install Project Hardarda, you can use pip:
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+```bash
+pip install project-hardarda
