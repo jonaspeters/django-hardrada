@@ -1,0 +1,16 @@
+html {
+	font-family: "roboto-regular", sans-serif;
+}
+a {
+    text-decoration: none;
+}
+.bg-hardrada {
+    background-color: #263544;
+}
+.text-hardrada {
+    color: #263544;
+}
+
+.menu .menu-item:hover {
+    background-color: #eeeeee25;
+}
