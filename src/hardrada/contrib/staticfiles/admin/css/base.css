@@ -1,16 +1,23 @@
 html {
 	font-family: "roboto-regular", sans-serif;
-}
-a {
-    text-decoration: none;
+    padding: 0;
+    margin: 0;
 }
 .bg-hardrada {
-    background-color: #263544;
+    background-color: #1a1d20;
 }
 .text-hardrada {
-    color: #263544;
+    color: #1a1d20;
+}
+/* MENU */
+.menu-collapsed {
+    width: 15rem;
+}
+.menu-extended {
+    width: 15rem;
 }
 
-.menu .menu-item:hover {
-    background-color: #eeeeee25;
+/* CONTENT */
+.content-extended {
+    margin-left: 15rem;
 }
