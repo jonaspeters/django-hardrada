@@ -4,9 +4,9 @@ from pathlib import Path
 HARDRADA_BASE_DIR = Path(__file__).resolve().parent.parent
 
 HARDRADA_TEMPLATES = [
-    HARDRADA_BASE_DIR / 'contrib' / 'templates'
+    HARDRADA_BASE_DIR  / 'templates'
 ]
 
 HARDRADA_STATICFILES_DIRS = [
-    HARDRADA_BASE_DIR / 'contrib' / 'staticfiles'
+    HARDRADA_BASE_DIR / 'staticfiles'
 ]

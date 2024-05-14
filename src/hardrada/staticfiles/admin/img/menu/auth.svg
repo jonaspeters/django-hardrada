@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 72 72"
+   width="64px"
+   height="64px"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="auth.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="6.4799707"
+     inkscape:cx="4.9382939"
+     inkscape:cy="59.413849"
+     inkscape:window-width="1718"
+     inkscape:window-height="1360"
+     inkscape:window-x="1713"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1" />
+  <path
+     d="m 56.613099,19.528066 c -5.214075,-6.7333 -14.903659,-7.968458 -21.642743,-2.758858 -4.662551,3.60435 -6.686453,9.348087 -5.767008,14.776176 L 16.9551,41.013802 c -0.888592,0.686918 -1.408369,1.746485 -1.408756,2.869157 l -4.1e-4,6.088583 c 1.48e-4,1.41231 1.024211,2.616954 2.418845,2.845794 l 7.446301,1.223144 c 1.279317,0.128822 2.498428,-0.573441 3.028879,-1.743597 l 1.269756,-2.79977 0.225703,-0.174478 4.228811,0.109837 c 1.248281,0.03243 2.317279,-0.885143 2.472217,-2.12385 l 0.43876,-3.505347 1.01356,-0.783526 c 5.027874,2.252099 11.100554,1.736834 15.763105,-1.867517 6.739085,-5.209599 7.975303,-14.890866 2.761228,-21.624166 z m -5.742111,4.438896 c 1.226744,1.58418 0.93584,3.862349 -0.649701,5.088039 -1.58554,1.22569 -3.865667,0.935037 -5.09241,-0.649142 -1.226743,-1.58418 -0.935839,-3.86235 0.649701,-5.08804 1.58554,-1.22569 3.865667,-0.935036 5.09241,0.649143 z"
+     id="path1"
+     style="fill:#ececec;stroke-width:0.907127" />
+</svg>

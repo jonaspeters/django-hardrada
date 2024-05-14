@@ -1,0 +1,80 @@
+{% load i18n static hardrada %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:'en-us' }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}" data-bs-theme="dark">
+<head>
+
+<title>{% block title %}{% endblock %}</title>
+
+<link rel="stylesheet" href="{% static 'admin/css/bootstrap/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% block stylesheet %}{% static 'admin/css/base.css' %}{% endblock %}">
+{% block extrastyle %}{% endblock %}
+
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/bootstrap/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.actions.js' %}"></script>
+{% block extrahead %}{% endblock %}
+
+{% block responsive %}
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+{% endblock %}
+
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+
+</head>
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
+  data-admin-utc-offset="{% now 'Z' %}">
+
+  {% if not is_popup %}
+  {% block menu %}
+  <div class="menu menu-extended fixed-top bg-hardrada h-100" style="width: 15rem !important">
+    <nav class="navbar border-bottom border-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand text-light font-weight-bold" href="#">
+          <img src="{% static 'admin/img/menu/logo.svg' %}" alt="Logo" width="25" height="25" class="d-inline-block align-text-top me-2">
+          {% block branding %}{% endblock %}
+        </a>
+      </div>
+    </nav>
+    <div class="mt-3">
+      <!-- Home button -->
+      <a class="menu-item d-block text-light" href="{% url 'admin:index' %}">
+        <div class="container-fluid py-1">
+          <img src="{% static 'admin/img/menu/home.svg' %}" width="25" height="25" class="me-2"><span class="align-middle">{% trans 'Home' %}</span>
+        </div>
+      </a>
+
+      <!-- App links -->
+      {% for app in available_apps %}
+      <a class="menu-item d-block text-light" href="{% url 'admin:index' %}" title="{{ app.name }}">
+        <div class="container-fluid py-1">
+          <img src="{% static app.app_label|app_icon %}" width="25" height="25" class="me-2"><span class="align-middle">{{ app.name|slice:":20" }}</span>
+          <img src="{% static 'admin/img/menu/arrow.svg' %}" width="25" height="25" class="float-end">
+        </div>
+      </a>
+      {% for model in app.models %}<a class="menu-model d-block text-light ps-5" href="#">
+        <div class="p-1">
+          {{ model.name }}
+        </div>
+      </a>
+      {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endblock %}
+
+  <div class="content content-extended">
+    {% block header %}
+    <nav class="navbar border-bottom border-dark-subtle">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <span>{{ title }}</span>
+        </a>
+      </div>
+    </nav>
+    {% endblock %}
+  </div>
+  {% endif %}
+
+</body>
+</html>
