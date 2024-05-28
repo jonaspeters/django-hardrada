@@ -1,7 +1,7 @@
 {% extends "admin/base_site.html" %}
 {% load i18n static %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/login.css" %}">
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin/css/login.css' %}">
 {{ form.media }}
 {% endblock %}
 
@@ -17,52 +17,77 @@
 
 {% block nav-breadcrumbs %}{% endblock %}
 
+{% block menu %}
+<div class="menu fixed-top bg-hardrada h-100 center-content">
+  <div class="text-center">
+    <img src="{% static 'admin/img/menu/logo.svg' %}" alt="Logo" width="150" height="150" class="d-block align-text-top mb-2">
+    <h1 class="text-light">{% block branding %}{{ site_header|default:_('Django administration') }}{% endblock %}</h1>
+  </div>
+</div>
+{% endblock %}
+
+{% block header %}{% endblock %}
+
 {% block content %}
-{% if form.errors and not form.non_field_errors %}
-<p class="errornote">
-{% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
-</p>
-{% endif %}
+<div class="center-content ps-4">
+  <form class="w-100" action="{{ app_path }}" method="post" id="login-form">
+    {% csrf_token %}
 
-{% if form.non_field_errors %}
-{% for error in form.non_field_errors %}
-<p class="errornote">
-    {{ error }}
-</p>
-{% endfor %}
-{% endif %}
+    {% if form.errors and not form.non_field_errors %}
+    <div class="alert alert-danger mb-3" role="alert">
+    {% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
+    </div>
+    {% endif %}
 
-<div id="content-main">
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-danger mb-3" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    {% endif %}
 
-{% if user.is_authenticated %}
-<p class="errornote">
-{% blocktranslate trimmed %}
-    You are authenticated as {{ username }}, but are not authorized to
-    access this page. Would you like to login to a different account?
-{% endblocktranslate %}
-</p>
-{% endif %}
+    {% if user.is_authenticated %}
+    <div class="alert alert-warning mb-3" role="alert">
+    {% blocktranslate trimmed %}
+        You are authenticated as {{ username }}, but are not authorized to
+        access this page. Would you like to login to a different account?
+    {% endblocktranslate %}
+    </div>
+    {% endif %}
 
-<form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
-  <div class="form-row">
-    {{ form.username.errors }}
-    {{ form.username.label_tag }} {{ form.username }}
-  </div>
-  <div class="form-row">
-    {{ form.password.errors }}
-    {{ form.password.label_tag }} {{ form.password }}
-    <input type="hidden" name="next" value="{{ next }}">
-  </div>
-  {% url 'admin_password_reset' as password_reset_url %}
-  {% if password_reset_url %}
-  <div class="password-reset-link">
-    <a href="{{ password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
-  </div>
-  {% endif %}
-  <div class="submit-row">
-    <input type="submit" value="{% translate 'Log in' %}">
-  </div>
-</form>
+    <h4 class="mb-4">{{ title }}</h4>
 
+    <div class="mb-3 text-left w-100">
+      <input 
+        class="form-control{% if form.username.errors %} border-danger{% endif %}" 
+        type="text" 
+        name="username" 
+        autofocus="" 
+        autocapitalize="none" 
+        autocomplete="username" 
+        maxlength="150" 
+        required="" 
+        id="id_username"
+        placeholder="{{ form.username.label }}">
+      {% if form.username.errors %}<div id="usernameHelp" class="form-text">{{ form.username.errors }}</div>{% endif %}
+    </div>
+
+    <div class="mb-3 text-left w-100">
+      <input 
+        class="form-control{% if form.password.errors %} border-danger{% endif %}" 
+        type="password" 
+        name="password" 
+        autocomplete="current-password" 
+        required="" 
+        id="id_password"
+        placeholder="{{ form.password.label }}">
+        {% if form.password.errors %}<div id="passwordHelp" class="form-text">{{ form.password.errors }}</div>{% endif %}
+    </div>
+
+    <div class="submit-row">
+      <input class="btn btn-success" type="submit" value="{% translate 'Log in' %}">
+    </div>
+  </form>
 </div>
 {% endblock %}

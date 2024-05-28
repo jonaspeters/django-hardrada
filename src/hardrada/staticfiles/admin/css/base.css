@@ -48,7 +48,7 @@ html {
     text-decoration: none;
 }
 .menu-collapsed {
-    width: 15rem;
+    width: 3.1rem;
 }
 .menu-extended {
     width: 15rem;
@@ -62,6 +62,9 @@ html {
 .menu .menu-item:hover, .menu .menu-model:hover {
     color: #eee;
     background-color: #363636;
+}
+.menu-collapsed .app-name, .menu-collapsed .app-arrow, .menu-collapsed .app-model, .menu-collapsed .logo-name {
+    display: none;
 }
 
 /** 
