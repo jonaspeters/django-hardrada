@@ -1,6 +1,6 @@
 {% load i18n static hardrada %}<!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
-<html lang="{{ LANGUAGE_CODE|default:'en-us' }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}" data-bs-theme="dark">
+<html lang="{{ LANGUAGE_CODE|default:'en-us' }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}" data-bs-theme="{{ theme }}">
 <head>
 
 <title>{% block title %}{% endblock %}</title>
@@ -12,6 +12,10 @@
 <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'admin/js/bootstrap/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'admin/js/jquery.actions.js' %}"></script>
+<script type="text/javascript">
+  window.__hardrada_menu__ = "{% url 'hardrada.actions' 'menu' %}";
+  window.__hardrada_theme__ = "{% url 'hardrada.actions' 'theme' %}";
+</script>
 {% block extrahead %}{% endblock %}
 
 {% block responsive %}
@@ -26,7 +30,7 @@
   data-admin-utc-offset="{% now 'Z' %}">
     {% if not is_popup %}
     {% block menu %}
-    <div class="menu menu-extended fixed-top bg-hardrada h-100">
+    <div class="menu menu-{{ menu }} fixed-top bg-hardrada h-100">
       <nav class="navbar border-bottom border-dark">
         <div class="container-fluid">
           <a class="navbar-brand text-light font-weight-bold" href="#">
@@ -52,7 +56,7 @@
           </div>
         </a>
         <div class="app-model collapse" id="{{ app.app_label }}-model">
-        {% for model in app.models %}<a class="menu-item menu-model d-block text-light ps-5" href="{{ modeladmin.url }}" title="{{ model.name }}">
+        {% for model in app.models %}<a class="menu-item menu-model d-block text-light ps-5" href="{{ model.admin_url }}" title="{{ model.name }}">
           <div class="p-1" >{{ model.name|slice:":20" }}</div>
         </a>
         {% endfor %}
@@ -63,25 +67,65 @@
     {% endblock %}
     {% endif %}
 
-    <div class="content content-extended">
+    <div class="content content-{{ menu }}">
       {% if not is_popup %}
       {% block header %}
-      <nav class="navbar border-bottom border-dark-subtle">
+      <nav class="header navbar border-bottom border-dark-subtle">
         <div class="container-fluid">
           <span class="navbar-brand">{% if title %}{{ title }}{% endif %}</span>
+
+          <div class="d-flex">
+            <a href="#" title="{% trans 'Change theme' %}" class="pe-2" id="change-theme">
+              <img src="{% static 'admin/img/menu/theme.svg' %}" alt="Logo" width="30" height="30" class="">
+            </a>
+            <a href="#profile-tools" title="{% trans 'Profile' %}" data-bs-toggle="collapse" role="button" aria-expanded="false">
+              <img src="{% static 'admin/img/menu/profile.svg' %}" alt="Logo" width="30" height="30" class="">
+            </a>
+          </div>
         </div>
+        {% if has_permission %}
+        <div class="fixed-top bg-dark-subtle h-100 collapse p-3" id="profile-tools">
+          {% block welcome-msg %}
+          <div class="mb-3">
+            <div class="h5 text-center">{% translate 'Welcome,' %}</div>
+            <div class="h4 text-center w-100">{% firstof user.get_short_name user.get_username %}</div>
+          </div>
+          {% endblock %}
+
+          {% block userlinks %}
+            {% if site_url %}
+                <a class="btn btn-primary btn-sm mb-2 w-100" href="{{ site_url }}">{% translate 'View site' %}</a>
+            {% endif %}
+            {% if user.is_active and user.is_staff %}
+                {% url 'django-admindocs-docroot' as docsroot %}
+                {% if docsroot %}
+                    <a class="btn btn-primary btn-sm mb-2 w-100" class="btn btn-primary" href="{{ docsroot }}">{% translate 'Documentation' %}</a>
+                {% endif %}
+            {% endif %}
+            {% if user.has_usable_password %}
+            <a  class="btn btn-primary btn-sm mb-2 w-100" href="{% url 'admin:password_change' %}">{% translate 'Change password' %}</a>
+            {% endif %}
+            <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+                {% csrf_token %}
+                <button class="btn btn-danger btn-sm mb-2 w-100" type="submit">{% translate 'Log out' %}</button>
+            </form>
+          {% endblock %}
+          
+          {% block usertools %}{% endblock %}
+        </div>
+        {% endif %}
       </nav>
       {% endblock %}
       {% endif %}
 
       <!-- Breadcrumbs -->
       {% block nav-breadcrumbs %}
-      <nav aria-label="{% translate 'Breadcrumbs' %}">
+      <nav class="p-2" style="--bs-breadcrumb-divider: '>';" aria-label="{% translate 'Breadcrumbs' %}">
         {% block breadcrumbs %}
-          <div class="breadcrumbs">
-            <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
-            {% if title %} &rsaquo; {{ title }}{% endif %}
-          </div>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'admin:index' %}">{% translate 'Home' %}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{% if title %} &rsaquo; {{ title }}{% endif %}</li>
+        </ol>
         {% endblock %}
       </nav>
       {% endblock %}

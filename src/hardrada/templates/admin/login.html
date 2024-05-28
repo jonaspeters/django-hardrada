@@ -69,6 +69,7 @@
         maxlength="150" 
         required="" 
         id="id_username"
+        value="{% firstof form.username.value '' %}"
         placeholder="{{ form.username.label }}">
       {% if form.username.errors %}<div id="usernameHelp" class="form-text">{{ form.username.errors }}</div>{% endif %}
     </div>

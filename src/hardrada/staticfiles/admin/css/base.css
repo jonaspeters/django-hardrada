@@ -72,6 +72,11 @@ html {
  * 04. Header Styles
  * ------------------------------------------------------------------- 
  */
+ .header #profile-tools {
+    width: 15rem;
+    right: 0px;
+    left: auto;
+ }
 
  /** 
  * ===================================================================
@@ -80,4 +85,7 @@ html {
  */
 .content-extended {
     margin-left: 15rem;
+}
+.content-collapsed {
+    margin-left: 3.1rem;
 }
