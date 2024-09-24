@@ -12,3 +12,15 @@ def app_icon(app_label: str) -> str:
         
         case _:
             return 'admin/img/menu/app.svg'
+
+
+@register.filter
+def to_bootstrap(value: str) -> str:
+
+    return value.replace('error', 'danger')
+
+
+@register.filter
+def keys(value: any) -> any:
+
+    return dir(value)
